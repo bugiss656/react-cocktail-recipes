@@ -1,0 +1,20 @@
+
+
+.drink-details__id, .drink-details__category {
+    padding: 5px 0;
+}
+
+.drink-details__image {
+    width: 400px;
+    height: auto;
+}
+
+.list__item {
+    list-style-type: none;
+    padding: 5px 0;
+}
+
+.list__item:hover {
+    text-decoration: underline;
+}
+

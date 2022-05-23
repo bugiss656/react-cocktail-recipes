@@ -1,0 +1,9 @@
+
+
+.navbar {
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    padding: 10px 16px;
+    background-color: #ffffff;
+}

@@ -1,0 +1,29 @@
+
+
+.search-bar {
+    height: 40px;
+}
+
+.search-bar__input {
+    width: 300px;
+    padding: 6px 14px;
+    border: 1px solid #000000;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.search-bar__input:focus {
+    box-shadow: 0 0 0 0 #ffffff, 0 0 0 1px #000000;
+    outline: none;
+}
+
+.search-bar__button {
+    padding: 0 6px;
+    margin: 0 3px;
+    background-color: #ffffff;
+    border: none;
+}
+
+.search-bar__button:hover {
+    cursor: pointer;
+}
