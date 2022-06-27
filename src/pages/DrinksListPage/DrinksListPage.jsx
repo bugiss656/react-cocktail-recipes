@@ -1,6 +1,5 @@
 import { useEffect } from "react"
 import { useParams } from "react-router-dom"
-import useFetchData from "../../hooks/useFetchData"
 import { matchParams } from "../../utils/matchParams"
 import { categories, urls } from "../../settings"
 import { useDispatch, useSelector } from "react-redux"
@@ -20,7 +19,7 @@ const RecipesList = () => {
     const isLoading = useSelector(selectIsLoading)
     const error = useSelector(selectError)
 
-    
+
     const getCategoryName = (arr, category) => {
         for (let item of arr) {
             if (category in item) {

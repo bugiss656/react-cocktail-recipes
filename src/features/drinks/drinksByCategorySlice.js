@@ -18,7 +18,7 @@ export const fetchDrinksByCategory = createAsyncThunk(
 )
 
 export const drinksByCategorySlice = createSlice({
-    name: 'drinksByCategory',
+    name: 'drinks',
     initialState,
     reducers: {},
     extraReducers: {
