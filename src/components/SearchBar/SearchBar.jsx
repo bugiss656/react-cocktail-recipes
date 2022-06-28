@@ -3,7 +3,8 @@ import { IconContext } from 'react-icons'
 import { BiSearch } from 'react-icons/bi'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { updateSearchQuery } from '../../features/search/searchSlice'
+import { fetchSearchResults, updateSearchQuery } from '../../features/search/searchSlice'
+import { urls } from "../../settings"
 
 import './SearchBar.css'
 
@@ -21,6 +22,7 @@ const SearchBar = () => {
             alert('Enter search term')
         } else {
             dispatch(updateSearchQuery(searchQuery))
+            dispatch(fetchSearchResults(urls.drinksByName + searchQuery))
             navigate(`/search/${searchQuery}`)
             setSearchQuery('')
         }

@@ -1,7 +1,5 @@
 import { useSelector } from "react-redux"
-import { returnSearchQuery } from "../../features/search/searchSlice"
-import useFetchData from "../../hooks/useFetchData"
-import { urls } from "../../settings"
+import { selectError, selectIsLoading, selectSearchQuery, selectSearchResults } from "../../features/search/searchSlice"
 
 import SectionContainer from "../../components/Container/SectionContainer"
 import Header from "../../components/Header/Header"
@@ -10,8 +8,10 @@ import DrinkCard from "../../components/DrinkCard/DrinkCard"
 
 
 const SearchResultsPage = () => {
-    const searchQuery = useSelector(returnSearchQuery)
-    const {data, isLoading, error} = useFetchData(urls.drinksByName + searchQuery)
+    const searchQuery = useSelector(selectSearchQuery)
+    const searchResults = useSelector(selectSearchResults)
+    const isLoading = useSelector(selectIsLoading)
+    const error = useSelector(selectError)
 
     return (
         <>
@@ -21,10 +21,10 @@ const SearchResultsPage = () => {
             <SectionContainer className='container d-flex flex-row flex-wrap justify-content-center align-items-center my-5'>
                 {isLoading && <Loader />}
                 {error && <div>{error}</div>}
-                {data &&
-                    data.drinks !== null 
+                {searchResults &&
+                    searchResults !== null 
                         ?
-                            data.drinks.map(drink => 
+                            searchResults.map(drink => 
                                 <DrinkCard
                                     key={drink.idDrink}
                                     id={drink.idDrink}
