@@ -1,4 +1,3 @@
-import './DrinkDetails.css'
 import { BsListCheck } from 'react-icons/bs'
 import { RiFileList3Line } from 'react-icons/ri'
 import { IconContext } from 'react-icons'
@@ -7,6 +6,8 @@ import { v4 as uuidv4 } from 'uuid'
 
 import Divider from '../Divider/Divider'
 import Header from '../Header/Header'
+
+import './DrinkDetails.css'
 
 
 const DrinkDetails = ({ id, name, imageUrl, category, measures, ingredients, instructions }) => {

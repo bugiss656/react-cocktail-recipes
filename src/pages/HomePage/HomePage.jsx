@@ -4,11 +4,9 @@ import './HomepageHeader.css'
 
 const Homepage = () => {
     return (
-        <>
-            <SectionContainer className="container d-flex flex-row justify-content-center align-items-center my-5">
-                <HomepageHeader />
-            </SectionContainer>
-        </>
+        <SectionContainer className="container d-flex flex-row justify-content-center align-items-center my-5">
+            <HomepageHeader />
+        </SectionContainer>
     )
 }
 

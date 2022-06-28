@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { categories, urls } from "../../settings"
+import { categories } from "../../settings"
 
 import { 
     IoIosArrowDown,
@@ -14,14 +14,12 @@ const CategoriesDropdown = () => {
     const [isExpanded, setIsExpanded] = useState(false)
 
     return (
-        <>
-            <Dropdown 
-                isExpanded={isExpanded} 
-                onMouseEnter={() => { setIsExpanded(true) }}
-                onMouseLeave={() => { setIsExpanded(false) }} 
-                dropdownList={<DropdownList isExpanded={isExpanded} />}
-            />
-        </>
+        <Dropdown
+            isExpanded={isExpanded}
+            onMouseEnter={() => { setIsExpanded(true) }}
+            onMouseLeave={() => { setIsExpanded(false) }}
+            dropdownList={<DropdownList isExpanded={isExpanded} />}
+        />
     )
 }
 

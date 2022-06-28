@@ -1,6 +1,7 @@
+import { urls } from "../../settings"
+
 import Divider from "../Divider/Divider"
 import Header from "../Header/Header"
-import { urls } from "../../settings"
 
 import './IngredientDetails.css'
 
