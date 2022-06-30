@@ -15,6 +15,7 @@ import RandomDrink from './components/RandomDrink/RandomDrink'
 import DrinkOverviewPage from './pages/DrinkOverviewPage/DrinkOverviewPage'
 import IngredientOverviewPage from './pages/IngredientOverviewPage/IngredientOverviewPage'
 import SearchResultsPage from './pages/SearchResultsPage/SearchResultsPage'
+import PrintPage from './pages/PrintPage/PrintPage'
 
 
 
@@ -31,10 +32,11 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Homepage />} />
           <Route path="/category/recipes/:category" element={<DrinksListPage />} />
-          <Route path="/random-drink" element={<RandomDrinkPage />} />
           <Route path="/drinks/:id" element={<DrinkOverviewPage />} />
           <Route path="/ingredients/:name" element={<IngredientOverviewPage />} />
           <Route path="/search/:query" element={<SearchResultsPage />} /> 
+          <Route path="/random-drink" element={<RandomDrinkPage />} />
+          <Route path="/print-view" element={<PrintPage />} />
         </Routes>
       </Router>
     </div>

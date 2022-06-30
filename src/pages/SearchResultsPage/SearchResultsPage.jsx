@@ -15,7 +15,7 @@ const SearchResultsPage = () => {
 
     return (
         <>
-            <SectionContainer className='container d-flex flex-column'>
+            <SectionContainer className='container d-flex flex-column my-5'>
                 <Header text={`Search results for "${searchQuery}"`} />
             </SectionContainer>
             <SectionContainer className='container d-flex flex-row flex-wrap justify-content-center align-items-center my-5'>
