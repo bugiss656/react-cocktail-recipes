@@ -38,8 +38,8 @@ const DrinkOverviewPage = () => {
                     name={singleDrink.strDrink}
                     imageUrl={singleDrink.strDrinkThumb}
                     category={singleDrink.strCategory}
-                    measures={retrieveDrinkProperties(singleDrink, 'strMeasure')}
                     ingredients={retrieveDrinkProperties(singleDrink, 'strIngredient')}
+                    measures={retrieveDrinkProperties(singleDrink, 'strMeasure')}
                     instructions={singleDrink.strInstructions}
                 />
             }

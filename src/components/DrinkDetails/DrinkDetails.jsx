@@ -42,7 +42,7 @@ const DrinkDetails = ({ id, name, imageUrl, category, measures, ingredients, ins
     )
 }
 
-const Ingredients = ({ measures, ingredients }) => {
+export const Ingredients = ({ ingredients, measures }) => {
     return (
         <div className="d-flex flex-row my-3">
             <List>
@@ -61,7 +61,7 @@ const Ingredients = ({ measures, ingredients }) => {
     )
 }
 
-const List = ({ children }) => {
+export const List = ({ children }) => {
     return (
         <ul className="list">
             {children}
@@ -69,7 +69,7 @@ const List = ({ children }) => {
     )
 }
 
-const ListItem = ({ text }) => {
+export const ListItem = ({ text }) => {
     return (
         <li className="list__item">{text}</li>
     )

@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { useSelector } from 'react-redux'
+import { IconContext } from 'react-icons'
 import { selectDrink, selectError, selectIsLoading } from "../../features/drink/drinkSlice"
+import { retrieveDrinkProperties } from "../../utils/retrieveDrinkProperties"
 
 import Checkbox from "../Checkbox/Checkbox"
 import Divider from "../Divider/Divider"
@@ -8,6 +10,10 @@ import Header from "../Header/Header"
 import Loader from "../Loader/Loader"
 import Logo from "../Logo/Logo"
 import Select from "../Select/Select"
+import { Ingredients } from "../DrinkDetails/DrinkDetails"
+
+import { BsListCheck } from 'react-icons/bs'
+import { RiFileList3Line } from 'react-icons/ri'
 
 import './PrintView.css'
 
@@ -81,6 +87,11 @@ const PrintPreview = () => {
                         glass={drink.strGlass}
                         imageUrl={drink.strDrinkThumb}
                     />
+                    <PreviewBody 
+                        ingredients={retrieveDrinkProperties(drink, 'strIngredient')}
+                        measures={retrieveDrinkProperties(drink, 'strMeasure')}
+                        instructions={drink.strInstructions}
+                    />
                 </>
             }
         </div>
@@ -114,10 +125,25 @@ const PreviewHeader = ({ name, category, alcoholic, glass, imageUrl }) => {
     )
 }
 
-const PreviewBody = () => {
+const PreviewBody = ({ ingredients, measures, instructions }) => {
     return (
-        <div className="d-flex">
-
+        <div className="preview-body d-flex flex-column">
+            <IconContext.Provider value={{ style: { marginRight: '6px' } }}>
+                <h4>
+                    <BsListCheck />
+                    <b>Ingredients</b>
+                </h4>
+                <Ingredients
+                    ingredients={ingredients}
+                    measures={measures}
+                />
+                <Divider />
+                <h4>
+                    <RiFileList3Line />
+                    <b>Instructions</b>
+                </h4>
+                <p>{instructions}</p>
+            </IconContext.Provider>
         </div>
     )
 }
