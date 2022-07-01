@@ -1,7 +1,11 @@
 import { useState } from "react"
+import { useSelector } from 'react-redux'
+import { selectDrink, selectError, selectIsLoading } from "../../features/drink/drinkSlice"
 
 import Checkbox from "../Checkbox/Checkbox"
+import Divider from "../Divider/Divider"
 import Header from "../Header/Header"
+import Loader from "../Loader/Loader"
 import Logo from "../Logo/Logo"
 import Select from "../Select/Select"
 
@@ -23,7 +27,7 @@ const PrintView = () => {
 
 const PrintOptions = () => {
     const [fontSize, setFontSize] = useState('')
-    const [isChecked, setIsChecked] = useState(true)
+    const [includeImage, setIncludeImage] = useState(true)
 
     const options = {
         fontSize: ['12', '16', '18']
@@ -51,8 +55,8 @@ const PrintOptions = () => {
                     labelText="Include image:"
                     id="image__label"
                     className="mx-3 my-4"
-                    isChecked={isChecked} 
-                    onChange={() => setIsChecked(!isChecked)}
+                    isChecked={includeImage} 
+                    onChange={() => setIncludeImage(!includeImage)}
                 />
             </div>
         </div>
@@ -60,14 +64,60 @@ const PrintOptions = () => {
 }
 
 const PrintPreview = () => {
+    const drink = useSelector(selectDrink)
+    const isLoading = useSelector(selectIsLoading)
+    const error = useSelector(selectError)
+
     return (
         <div className="print-preview d-flex flex-column shadow p-3">
-            <div className="d-flex flex-row justify-content-left">
+            {isLoading && <Loader />}
+            {error && error}
+            {drink &&
+                <>
+                    <PreviewHeader
+                        name={drink.strDrink}
+                        category={drink.strCategory}
+                        alcoholic={drink.strAlcoholic}
+                        glass={drink.strGlass}
+                        imageUrl={drink.strDrinkThumb}
+                    />
+                </>
+            }
+        </div>
+    )
+}
+
+const PreviewHeader = ({ name, category, alcoholic, glass, imageUrl }) => {
+    return (
+        <div className="preview-header d-flex flex-column">
+            <div className="d-flex flex-row justify-content-start">
                 <Logo />
             </div>
-            <div className="d-flex flex-row">
-                Title
+            <div className="d-flex flex-row justify-content-between" style={{ marginTop: '120px' }}>
+                <div className="d-flex flex-column">
+                    <h1 className="my-4"><b>{name}</b></h1>
+                    <p><b>Category: </b>{category}</p>
+                    <p><b>Alcoholic: </b>{alcoholic}</p>
+                    <p><b>Glass: </b>{glass}</p>
+                </div>
+                <div className="d-flex flex-column">
+                    <img 
+                        className="preview-header__image" 
+                        src={imageUrl} 
+                        alt={name}
+                        style={{  }} 
+                    />
+                </div>
             </div>
+            <Divider />
+        </div>
+    )
+}
+
+const PreviewBody = () => {
+    return (
+        <div className="d-flex">
+
         </div>
     )
 }

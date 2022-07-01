@@ -1,14 +1,11 @@
 
 
-.print-view {
-    
-}
-
-.print-options {
-
-}
-
 .print-preview {
     width: 797px;
     height: 1123px;
+}
+
+.preview-header__image {
+    width: 250px;
+    height: auto;
 }
