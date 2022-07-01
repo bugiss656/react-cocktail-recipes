@@ -4,11 +4,11 @@ import { urls } from "../../settings"
 import { retrieveDrinkProperties } from "../../utils/retrieveDrinkProperties"
 import { useDispatch, useSelector } from "react-redux/es/exports"
 import { 
-    fetchSingleDrinkById, 
+    fetchDrink, 
     selectError, 
     selectIsLoading, 
-    selectSingleDrink 
-} from "../../features/singleDrink/singleDrinkSlice"
+    selectDrink 
+} from "../../features/drink/drinkSlice"
 
 import SectionContainer from "../../components/Container/SectionContainer"
 import DrinkDetails from "../../components/DrinkDetails/DrinkDetails"
@@ -19,13 +19,13 @@ import Loader from "../../components/Loader/Loader"
 const DrinkOverviewPage = () => {
     const dispatch = useDispatch()
     const { id } = useParams()
-    const singleDrink = useSelector(selectSingleDrink)
+    const singleDrink = useSelector(selectDrink)
     const isLoading = useSelector(selectIsLoading)
     const error = useSelector(selectError)
 
 
     useEffect(() => {
-        dispatch(fetchSingleDrinkById(urls.drinkById + id))
+        dispatch(fetchDrink(urls.drinkById + id))
     }, [id])
 
     return (

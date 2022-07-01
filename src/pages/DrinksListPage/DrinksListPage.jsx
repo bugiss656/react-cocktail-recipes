@@ -3,7 +3,12 @@ import { useParams } from "react-router-dom"
 import { matchParams } from "../../utils/matchParams"
 import { categories, urls } from "../../settings"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchDrinksByCategory, selectDrinksByCategory, selectError, selectIsLoading } from "../../features/drinks/drinksByCategorySlice"
+import { 
+    fetchDrinksByCategory, 
+    selectDrinksByCategory, 
+    selectError, 
+    selectIsLoading 
+} from "../../features/drinks/drinksByCategorySlice"
 
 import DrinkCard from "../../components/DrinkCard/DrinkCard"
 import SectionContainer from "../../components/Container/SectionContainer"

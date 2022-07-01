@@ -1,6 +1,6 @@
 import { retrieveDrinkProperties } from "../../utils/retrieveDrinkProperties"
 import { useSelector } from "react-redux"
-import { selectError, selectIsLoading, selectRandomDrink } from "../../features/randomDrink/randomDrinkSlice"
+import { selectDrink, selectIsLoading, selectError } from "../../features/drink/drinkSlice"
 
 import DrinkDetails from "../../components/DrinkDetails/DrinkDetails"
 import SectionContainer from "../../components/Container/SectionContainer"
@@ -9,7 +9,7 @@ import Loader from "../../components/Loader/Loader"
 
 
 const RandomDrinkPage = () => {
-    const randomDrink = useSelector(selectRandomDrink)
+    const randomDrink = useSelector(selectDrink)
     const isLoading = useSelector(selectIsLoading)
     const error = useSelector(selectError)
 

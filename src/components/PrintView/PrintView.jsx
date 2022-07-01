@@ -1,7 +1,8 @@
 import { useState } from "react"
-import Checkbox from "../Checkbox/Checkbox"
 
+import Checkbox from "../Checkbox/Checkbox"
 import Header from "../Header/Header"
+import Logo from "../Logo/Logo"
 import Select from "../Select/Select"
 
 import './PrintView.css'
@@ -12,7 +13,7 @@ const PrintView = () => {
         <div className="print-view d-flex flex-column">
             <Header text="Print Options" />
 
-            <div className="d-flex flex-row justify-content-around align-items-center">
+            <div className="d-flex flex-row justify-content-around my-5">
                 <PrintOptions />
                 <PrintPreview />
             </div>
@@ -22,7 +23,7 @@ const PrintView = () => {
 
 const PrintOptions = () => {
     const [fontSize, setFontSize] = useState('')
-    const [isChecked, setIsChecked] = useState(false)
+    const [isChecked, setIsChecked] = useState(true)
 
     const options = {
         fontSize: ['12', '16', '18']
@@ -60,8 +61,13 @@ const PrintOptions = () => {
 
 const PrintPreview = () => {
     return (
-        <div className="print-preview">
-            Print Preview
+        <div className="print-preview d-flex flex-column shadow p-3">
+            <div className="d-flex flex-row justify-content-left">
+                <Logo />
+            </div>
+            <div className="d-flex flex-row">
+                Title
+            </div>
         </div>
     )
 }
