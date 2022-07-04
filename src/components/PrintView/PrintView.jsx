@@ -1,8 +1,16 @@
-import { useState } from "react"
-import { useSelector } from 'react-redux'
+import { useEffect } from "react"
+import { useDispatch, useSelector } from 'react-redux'
 import { IconContext } from 'react-icons'
 import { selectDrink, selectError, selectIsLoading } from "../../features/drink/drinkSlice"
 import { retrieveDrinkProperties } from "../../utils/retrieveDrinkProperties"
+import { 
+    selectFontSizeType, 
+    selectFontSizeValue, 
+    selectIncludeImage, 
+    setFontSizeType,
+    setFontSizeValue, 
+    toggleIncludeImage 
+} from "../../features/print/printSlice"
 
 import Checkbox from "../Checkbox/Checkbox"
 import Divider from "../Divider/Divider"
@@ -16,6 +24,7 @@ import { BsListCheck } from 'react-icons/bs'
 import { RiFileList3Line } from 'react-icons/ri'
 
 import './PrintView.css'
+
 
 
 const PrintView = () => {
@@ -32,12 +41,38 @@ const PrintView = () => {
 }
 
 const PrintOptions = () => {
-    const [fontSize, setFontSize] = useState('')
-    const [includeImage, setIncludeImage] = useState(true)
+    const dispatch = useDispatch()
+    const fontSizeType = useSelector(selectFontSizeType)
+    const fontSizeValue = useSelector(selectFontSizeValue)
+    const includeImage = useSelector(selectIncludeImage)
 
     const options = {
-        fontSize: ['12', '16', '18']
+        fontSize: ['small', 'medium', 'large']
     }
+
+    const switchFontSize = (size) => {
+        switch(size) {
+            case 'small':
+                dispatch(setFontSizeValue('0.8'))
+                break
+            case 'medium':
+                dispatch(setFontSizeValue('1.1'))
+                break
+            case 'large':
+                dispatch(setFontSizeValue('1.3'))
+                break
+        }
+    }
+
+    useEffect(() => {
+        switchFontSize(fontSizeType)
+    }, [])
+
+    useEffect(() => {
+        switchFontSize(fontSizeType)
+    }, [fontSizeType])
+
+    console.log(fontSizeValue)
 
 
     return (
@@ -49,11 +84,10 @@ const PrintOptions = () => {
                     id="font-size__label"
                     className="mx-3 my-4"
                     name="font-size"
-                    selectValue={fontSize}
-                    onChange={(e) => setFontSize(e.target.value)}
+                    selectValue={fontSizeType}
+                    onChange={(e) => dispatch(setFontSizeType(e.target.value))}
                     initialOptionText="Choose font size"
                     options={options.fontSize}
-                    optionText="px"
                 />
             </div>
             <div className="print-options__image d-flex align-items-center">
@@ -62,7 +96,7 @@ const PrintOptions = () => {
                     id="image__label"
                     className="mx-3 my-4"
                     isChecked={includeImage} 
-                    onChange={() => setIncludeImage(!includeImage)}
+                    onChange={() => dispatch(toggleIncludeImage())}
                 />
             </div>
         </div>
@@ -74,8 +108,11 @@ const PrintPreview = () => {
     const isLoading = useSelector(selectIsLoading)
     const error = useSelector(selectError)
 
+    const fontSizeValue = useSelector(selectFontSizeValue)
+
+
     return (
-        <div className="print-preview d-flex flex-column shadow p-3">
+        <div className="print-preview d-flex flex-column shadow p-3" style={{ fontSize: `${fontSizeValue}rem` }}>
             {isLoading && <Loader />}
             {error && error}
             {drink &&
@@ -99,6 +136,8 @@ const PrintPreview = () => {
 }
 
 const PreviewHeader = ({ name, category, alcoholic, glass, imageUrl }) => {
+    const includeImage = useSelector(selectIncludeImage)
+
     return (
         <div className="preview-header d-flex flex-column">
             <div className="d-flex flex-row justify-content-start">
@@ -116,7 +155,7 @@ const PreviewHeader = ({ name, category, alcoholic, glass, imageUrl }) => {
                         className="preview-header__image" 
                         src={imageUrl} 
                         alt={name}
-                        style={{  }} 
+                        style={{ display: includeImage ? 'block' : 'none' }} 
                     />
                 </div>
             </div>

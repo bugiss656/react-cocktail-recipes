@@ -3,6 +3,7 @@ import searchReducer from '../features/search/searchSlice'
 import drinksReducer from '../features/drinks/drinksByCategorySlice'
 import drinkReducer from '../features/drink/drinkSlice'
 import ingredientReducer from '../features/ingredient/ingredientSlice'
+import printReducer from '../features/print/printSlice'
 
 
 export const store = configureStore({
@@ -10,6 +11,7 @@ export const store = configureStore({
     search: searchReducer,
     drinks: drinksReducer,
     drink: drinkReducer,
-    ingredient: ingredientReducer
+    ingredient: ingredientReducer,
+    print: printReducer
   },
 });
