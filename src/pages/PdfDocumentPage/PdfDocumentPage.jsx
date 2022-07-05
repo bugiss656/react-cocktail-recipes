@@ -2,7 +2,7 @@ import SectionContainer from "../../components/Container/SectionContainer"
 import PrintView from "../../components/PrintView/PrintView"
 
 
-const PrintPage = () => {
+const PdfDocumentPage = () => {
     return (
         <SectionContainer className="container d-flex flex-column my-5" >
             <PrintView />
@@ -10,4 +10,4 @@ const PrintPage = () => {
     )
 }
 
-export default PrintPage
+export default PdfDocumentPage

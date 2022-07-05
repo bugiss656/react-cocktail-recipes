@@ -16,7 +16,7 @@ const DrinkDetails = ({ id, name, imageUrl, category, measures, ingredients, ins
             <IconContext.Provider value={{ style: { marginRight: '6px' } }}>
                 <Header text={name} />
 
-                <Link to="/print-view">Print recipe</Link>
+                <Link to="/pdf-view">Print recipe</Link>
 
                 <p className="drink-details__id"><b>drink ID:</b> {id}</p>
                 <p className="drink-details__category"><b>Category:</b> {category}</p>

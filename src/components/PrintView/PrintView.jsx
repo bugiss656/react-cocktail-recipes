@@ -56,10 +56,10 @@ const PrintOptions = () => {
                 dispatch(setFontSizeValue('0.8'))
                 break
             case 'medium':
-                dispatch(setFontSizeValue('1.1'))
+                dispatch(setFontSizeValue('1.0'))
                 break
             case 'large':
-                dispatch(setFontSizeValue('1.3'))
+                dispatch(setFontSizeValue('1.2'))
                 break
         }
     }
@@ -71,8 +71,6 @@ const PrintOptions = () => {
     useEffect(() => {
         switchFontSize(fontSizeType)
     }, [fontSizeType])
-
-    console.log(fontSizeValue)
 
 
     return (
@@ -99,6 +97,9 @@ const PrintOptions = () => {
                     onChange={() => dispatch(toggleIncludeImage())}
                 />
             </div>
+            <div className="print-options__print-document">
+                <button>Print document</button>
+            </div>
         </div>
     )
 }
@@ -108,11 +109,9 @@ const PrintPreview = () => {
     const isLoading = useSelector(selectIsLoading)
     const error = useSelector(selectError)
 
-    const fontSizeValue = useSelector(selectFontSizeValue)
-
 
     return (
-        <div className="print-preview d-flex flex-column shadow p-3" style={{ fontSize: `${fontSizeValue}rem` }}>
+        <div id="print-preview" className="print-preview d-flex flex-column shadow p-3">
             {isLoading && <Loader />}
             {error && error}
             {drink &&
@@ -136,7 +135,9 @@ const PrintPreview = () => {
 }
 
 const PreviewHeader = ({ name, category, alcoholic, glass, imageUrl }) => {
+    const fontSizeValue = useSelector(selectFontSizeValue)
     const includeImage = useSelector(selectIncludeImage)
+
 
     return (
         <div className="preview-header d-flex flex-column">
@@ -144,18 +145,18 @@ const PreviewHeader = ({ name, category, alcoholic, glass, imageUrl }) => {
                 <Logo />
             </div>
             <div className="d-flex flex-row justify-content-between" style={{ marginTop: '120px' }}>
-                <div className="d-flex flex-column">
-                    <h1 className="my-4"><b>{name}</b></h1>
-                    <p><b>Category: </b>{category}</p>
-                    <p><b>Alcoholic: </b>{alcoholic}</p>
-                    <p><b>Glass: </b>{glass}</p>
+                <div className="d-flex flex-column" style={{ fontSize: `${fontSizeValue}em` }}>
+                    <h2 className="my-4"><b style={{ fontSize: `${fontSizeValue}em` }}>{name}</b></h2>
+                    <p className="my-1"><b>Category: </b>{category}</p>
+                    <p className="my-1"><b>Alcoholic: </b>{alcoholic}</p>
+                    <p className="my-1"><b>Glass: </b>{glass}</p>
                 </div>
                 <div className="d-flex flex-column">
                     <img 
                         className="preview-header__image" 
                         src={imageUrl} 
                         alt={name}
-                        style={{ display: includeImage ? 'block' : 'none' }} 
+                        style={{ visibility: includeImage ? 'visible' : 'hidden' }} 
                     />
                 </div>
             </div>
@@ -165,12 +166,15 @@ const PreviewHeader = ({ name, category, alcoholic, glass, imageUrl }) => {
 }
 
 const PreviewBody = ({ ingredients, measures, instructions }) => {
+    const fontSizeValue = useSelector(selectFontSizeValue)
+
+
     return (
-        <div className="preview-body d-flex flex-column">
+        <div className="preview-body d-flex flex-column" style={{ fontSize: `${fontSizeValue}em` }}>
             <IconContext.Provider value={{ style: { marginRight: '6px' } }}>
                 <h4>
                     <BsListCheck />
-                    <b>Ingredients</b>
+                    <b style={{ fontSize: `${fontSizeValue}em` }}>Ingredients</b>
                 </h4>
                 <Ingredients
                     ingredients={ingredients}
@@ -179,7 +183,7 @@ const PreviewBody = ({ ingredients, measures, instructions }) => {
                 <Divider />
                 <h4>
                     <RiFileList3Line />
-                    <b>Instructions</b>
+                    <b style={{ fontSize: `${fontSizeValue}em` }}>Instructions</b>
                 </h4>
                 <p>{instructions}</p>
             </IconContext.Provider>

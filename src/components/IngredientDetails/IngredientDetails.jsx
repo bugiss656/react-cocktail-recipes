@@ -15,7 +15,7 @@ const IngredientDetails = ({ name, type, alcohol, abv, description }) => {
             <p>Type: {type ? type : '-'}</p>
             <p>Alcohol: {alcohol ? alcohol : '-'}</p>
             <p>ABV: {abv ? abv : '-'}</p>
-            <img className="ingredient-details__image" src={`${urls.ingredientImage}${name}.png`} alt={name} />
+            <img className="ingredient-details__image" src={`${urls.ingredientImage}${name}.png`} alt={name} loading="lazy" />
             <h4>Description</h4>
             <Divider />
             <p>{description ? description : 'No description available'}</p>

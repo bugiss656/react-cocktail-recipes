@@ -23,6 +23,7 @@ export const ingredientSlice = createSlice({
     reducers: {},
     extraReducers: {
         [fetchIngredientByName.pending]: (state) => {
+            state.ingredient = {}
             state.isLoading = true
         },
         [fetchIngredientByName.fulfilled]: (state, action) => {
