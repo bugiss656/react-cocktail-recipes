@@ -15,7 +15,7 @@ import RandomDrink from './components/RandomDrink/RandomDrink'
 import DrinkOverviewPage from './pages/DrinkOverviewPage/DrinkOverviewPage'
 import IngredientOverviewPage from './pages/IngredientOverviewPage/IngredientOverviewPage'
 import SearchResultsPage from './pages/SearchResultsPage/SearchResultsPage'
-import PdfDocumentPage from './pages/PdfDocumentPage/PdfDocumentPage'
+import PDFDocumentPage from './pages/PDFDocumentPage/PDFDocumentPage'
 
 
 
@@ -36,7 +36,7 @@ function App() {
           <Route path="/ingredients/:name" element={<IngredientOverviewPage />} />
           <Route path="/search/:query" element={<SearchResultsPage />} /> 
           <Route path="/random-drink" element={<RandomDrinkPage />} />
-          <Route path="/pdf-view" element={<PdfDocumentPage />} />
+          <Route path="/pdf-view" element={<PDFDocumentPage />} />
         </Routes>
       </Router>
     </div>

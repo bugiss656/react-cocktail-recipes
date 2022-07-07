@@ -3,7 +3,7 @@ import searchReducer from '../features/search/searchSlice'
 import drinksReducer from '../features/drinks/drinksByCategorySlice'
 import drinkReducer from '../features/drink/drinkSlice'
 import ingredientReducer from '../features/ingredient/ingredientSlice'
-import printReducer from '../features/print/printSlice'
+import pdfReducer from '../features/pdf/pdfSlice'
 
 
 export const store = configureStore({
@@ -12,6 +12,6 @@ export const store = configureStore({
     drinks: drinksReducer,
     drink: drinkReducer,
     ingredient: ingredientReducer,
-    print: printReducer
+    pdf: pdfReducer
   },
 });

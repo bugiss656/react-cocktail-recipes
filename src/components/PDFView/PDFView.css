@@ -1,0 +1,36 @@
+.pdf-preview {
+    width: 597px;
+    height: 840px;
+    padding: 20px;
+}
+
+.header-logo__text {
+    font-size: 16px;
+}
+
+.header-logo__image {
+    width: 20px;
+    height: 20px;
+}
+
+.header-details {
+    font-size: 20px;
+}
+
+.details__heading {
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.details__text {
+    margin: 5px 0;
+}
+
+.header__image {
+    width: 160px;
+    height: auto;
+}
+
+.body__instructions {
+    margin: 15px 0;
+}
