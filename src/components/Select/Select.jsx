@@ -1,7 +1,7 @@
 import './Select.css'
 
 
-const Select = ({ labelText, id, className, name, selectValue, onChange, initialOptionText, options }) => {
+const Select = ({ labelText, id, className, name, selectValue, onChange, options }) => {
     return (
         <>
             <label htmlFor={id}>{labelText}</label>
@@ -12,7 +12,6 @@ const Select = ({ labelText, id, className, name, selectValue, onChange, initial
                 value={selectValue}
                 onChange={onChange}
             >
-                <option value="">{initialOptionText}</option>
                 {options.map(option =>
                     <option key={option} value={option}>{option}</option>
                 )}

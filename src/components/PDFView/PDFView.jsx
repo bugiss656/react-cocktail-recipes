@@ -19,6 +19,7 @@ import { Ingredients } from "../DrinkDetails/DrinkDetails"
 
 import './PDFView.css'
 import { montserratRegular } from "./Montserrat-Regular-normal"
+import Button from "../Button/Button"
 
 
 
@@ -45,28 +46,30 @@ const PrintOptions = () => {
         font: [
             {
                 size: 'small',
-                h1: '30px',
-                h5: '25px',
-                text: '20px'
+                h1: '24px',
+                h5: '20px',
+                text: '10px'
             },
             {
                 size: 'medium',
-                h1: '35px',
-                h5: '30px',
-                text: '25px'
+                h1: '28px',
+                h5: '24px',
+                text: '12px'
             },
             {
                 size: 'large',
-                h1: '40px',
-                h5: '35px',
-                text: '30px'
+                h1: '32px',
+                h5: '28px',
+                text: '14px'
             },
         ],
+
         getFontSizeTypes() {
             return this.font.map(size => {
                 return size.size
             })
         },
+
         getFontSize(type) {
             let results = {}
 
@@ -88,9 +91,7 @@ const PrintOptions = () => {
         })
 
         doc.addFileToVFS('Montserrat-Regular-normal.ttf', montserratRegular)
-        
         doc.addFont('Montserrat-Regular-normal.ttf', 'Montserrat', 'normal')
-        
         doc.setFont('Montserrat', 'normal')
 
         doc.html(document.querySelector('#pdf-preview'), {
@@ -116,7 +117,6 @@ const PrintOptions = () => {
                     name="font-size"
                     selectValue={fontSize.size}
                     onChange={(e) => dispatch(setFontSize(options.getFontSize(e.target.value)))}
-                    initialOptionText="Choose font size"
                     options={options.getFontSizeTypes()}
                 />
             </div>
@@ -129,8 +129,11 @@ const PrintOptions = () => {
                     onChange={() => dispatch(toggleIncludeImage())}
                 />
             </div>
-            <div className="print-options__print-document">
-                <button onClick={() => { saveAsPDF() }}>Print document</button>
+            <div className="print-options__print-document my-4">
+                <Button 
+                    text="Save recipe"
+                    onClick={() => saveAsPDF()}
+                />
             </div>
         </div>
     )
@@ -175,7 +178,7 @@ const PDFPreviewHeader = ({ name, category, alcoholic, glass, imageUrl }) => {
                 <div className="header-logo__text">cocktailrecipes</div>
                 <img className="header-logo__image" src="assets/drink.png" alt="Logo" />
             </div>
-            <div className="d-flex flex-row justify-content-between align-items-start" style={{ marginTop: '100px', fontSize: `${fontSize.text}` }}>
+            <div className="d-flex flex-row justify-content-between align-items-start" style={{ marginTop: '80px', fontSize: `${fontSize.text}` }}>
                 <div className="header__details">
                     <h1 className="details__heading" style={{ fontSize: `${fontSize.h1}` }}>{name}</h1>
                     <p className="details__text">Category: {category}</p>
@@ -191,11 +194,15 @@ const PDFPreviewHeader = ({ name, category, alcoholic, glass, imageUrl }) => {
 
 const PDFPreviewBody = ({ ingredients, measures, instructions }) => {
     const fontSize = useSelector(selectFontSize)
+    const includeImage = useSelector(selectIncludeImage)
 
     return (
         <div className="pdf-preview__body" style={{ fontSize: `${fontSize.text}` }}>
             <Divider />
-            <h5 style={{ fontSize: `${fontSize.h5}` }}>Ingredients</h5>
+            <h5 className="d-flex align-items-center" style={{ fontSize: `${fontSize.h5}` }}>
+                <img src="assets/checklist.png" alt="checklist" style={{ width: '24px', height: '24px', marginRight: '5px', display: includeImage ? 'block' : 'none' }} />
+                Ingredients
+            </h5>
             <div className="body__ingredients d-flex flex-row">
                 <Ingredients
                     ingredients={ingredients}
@@ -203,7 +210,10 @@ const PDFPreviewBody = ({ ingredients, measures, instructions }) => {
                 />
             </div>
             <Divider />
-            <h5 style={{ fontSize: `${fontSize.h5}` }}>Instructions</h5>
+            <h5 className="d-flex align-items-center" style={{ fontSize: `${fontSize.h5}` }}>
+                <img src="assets/reading.png" alt="reading" style={{ width: '24px', height: '24px', marginRight: '5px', display: includeImage ? 'block' : 'none' }} />
+                Instructions
+            </h5>
             <div className="body__instructions">{instructions}</div>
         </div>
     )

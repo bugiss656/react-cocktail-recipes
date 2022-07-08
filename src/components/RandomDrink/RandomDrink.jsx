@@ -2,8 +2,7 @@ import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { fetchDrink } from "../../features/drink/drinkSlice"
 import { urls } from "../../settings"
-
-import './RandomDrink.css'
+import Button from "../Button/Button"
 
 
 const RandomDrink = () => {
@@ -11,12 +10,10 @@ const RandomDrink = () => {
 
     return (
         <Link to="/random-drink">
-            <button
-                className="button"
+            <Button 
+                text="Get random recipe"
                 onClick={() => dispatch(fetchDrink(urls.randomDrink))}
-            >
-                Get random recipe
-            </button>
+            />
         </Link>
     )
 }

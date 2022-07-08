@@ -4,6 +4,7 @@ import { IconContext } from 'react-icons'
 import { Link } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 
+import Button from '../Button/Button'
 import Divider from '../Divider/Divider'
 import Header from '../Header/Header'
 
@@ -15,11 +16,13 @@ const DrinkDetails = ({ id, name, imageUrl, category, measures, ingredients, ins
         <div className="drink-details d-flex flex-column">
             <IconContext.Provider value={{ style: { marginRight: '6px' } }}>
                 <Header text={name} />
-
-                <Link to="/pdf-view">Print recipe</Link>
-
                 <p className="drink-details__id"><b>drink ID:</b> {id}</p>
                 <p className="drink-details__category"><b>Category:</b> {category}</p>
+                <Link to="/pdf-view" style={{ margin: '15px 0' }}>
+                    <Button 
+                        text="Print recipe"
+                    />  
+                </Link>
                 <Divider />
                 <img className="drink-details__image" src={imageUrl} alt={name} />
                 <Divider />
