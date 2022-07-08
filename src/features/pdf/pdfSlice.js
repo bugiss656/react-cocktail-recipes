@@ -6,8 +6,8 @@ const initialState = {
     includeImage: true
 }
 
-export const printSlice = createSlice({
-    name: 'print',
+export const pdfSlice = createSlice({
+    name: 'pdf',
     initialState,
     reducers: {
         setFontSize: (state, action) => {
@@ -19,10 +19,10 @@ export const printSlice = createSlice({
     }
 })
 
-export default printSlice.reducer
+export default pdfSlice.reducer
 
-export const { setFontSize, toggleIncludeImage } = printSlice.actions
+export const { setFontSize, toggleIncludeImage } = pdfSlice.actions
 
-export const selectFontSize = state => state.print.fontSize
+export const selectFontSize = state => state.pdf.fontSize
 
-export const selectIncludeImage = state => state.print.includeImage
+export const selectIncludeImage = state => state.pdf.includeImage
