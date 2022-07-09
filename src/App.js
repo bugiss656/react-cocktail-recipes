@@ -8,7 +8,8 @@ import Navbar from './components/Navbar/Navbar'
 import Homepage from './pages/HomePage/HomePage'
 import Logo from './components/Logo/Logo'
 import SearchBar from './components/SearchBar/SearchBar'
-import CategoriesDropdown from './components/CategoriesDropdown/CategoriesDropdown'
+import Dropdown from './components/Dropdown/Dropdown'
+import { DropdownList } from './components/Dropdown/Dropdown'
 import DrinksListPage from './pages/DrinksListPage/DrinksListPage'
 import RandomDrinkPage from './pages/RandomDrinkPage/RandomDrinkPage'
 import RandomDrink from './components/RandomDrink/RandomDrink'
@@ -25,7 +26,9 @@ function App() {
       <Router>
         <Navbar>
           <Logo />
-          <CategoriesDropdown />
+          <Dropdown>
+            <DropdownList />
+          </Dropdown>
           <RandomDrink />
           <SearchBar />
         </Navbar>
