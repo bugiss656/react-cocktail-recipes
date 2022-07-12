@@ -107,8 +107,8 @@ const PDFOptions = () => {
 
 
     return (
-        <div className="print-options">
-            <div className="print-options__font-size d-flex align-items-center">
+        <div className="save-options">
+            <div className="save-options__font-size d-flex align-items-center">
                 <Select 
                     labelFor="font-size__label"
                     labelText="Font size:"
@@ -120,7 +120,7 @@ const PDFOptions = () => {
                     options={options.getFontSizeTypes()}
                 />
             </div>
-            <div className="print-options__image d-flex align-items-center">
+            <div className="save-options__image d-flex align-items-center">
                 <Checkbox 
                     labelText="Include image:"
                     id="image__label"
@@ -129,7 +129,7 @@ const PDFOptions = () => {
                     onChange={() => dispatch(toggleIncludeImage())}
                 />
             </div>
-            <div className="print-options__print-document my-4">
+            <div className="save-options__save-document my-4">
                 <Button 
                     text="Save recipe"
                     onClick={() => saveAsPDF()}
