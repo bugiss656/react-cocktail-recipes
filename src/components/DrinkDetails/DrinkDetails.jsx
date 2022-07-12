@@ -20,7 +20,7 @@ const DrinkDetails = ({ id, name, imageUrl, category, measures, ingredients, ins
                 <p className="drink-details__category"><b>Category:</b> {category}</p>
                 <Link to="/pdf-view" style={{ margin: '15px 0' }}>
                     <Button 
-                        text="Print recipe"
+                        text="Save as pdf file"
                     />  
                 </Link>
                 <Divider />

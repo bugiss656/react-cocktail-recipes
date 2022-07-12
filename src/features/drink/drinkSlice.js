@@ -23,6 +23,7 @@ const drinkSlice = createSlice({
     reducers: {},
     extraReducers: {
         [fetchDrink.pending]: (state) => {
+            state.drink = {}
             state.isLoading = true
         },
         [fetchDrink.fulfilled]: (state, action) => {

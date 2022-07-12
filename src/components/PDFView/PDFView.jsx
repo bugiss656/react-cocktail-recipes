@@ -15,28 +15,28 @@ import Divider from "../Divider/Divider"
 import Header from "../Header/Header"
 import Loader from "../Loader/Loader"
 import Select from "../Select/Select"
+import Button from "../Button/Button"
 import { Ingredients } from "../DrinkDetails/DrinkDetails"
 
 import './PDFView.css'
 import { montserratRegular } from "./Montserrat-Regular-normal"
-import Button from "../Button/Button"
 
 
 
-const PrintView = () => {
+const PDFView = () => {
     return (
         <div className="print-view d-flex flex-column">
-            <Header text="Print Options" />
+            <Header text="Save Options" />
 
             <div className="d-flex flex-row justify-content-around my-5">
-                <PrintOptions />
+                <PDFOptions />
                 <PDFRecipePreview />
             </div>
         </div>
     )
 }
 
-const PrintOptions = () => {
+const PDFOptions = () => {
     const dispatch = useDispatch()
     const fontSize = useSelector(selectFontSize)
     const includeImage = useSelector(selectIncludeImage)
@@ -46,21 +46,21 @@ const PrintOptions = () => {
         font: [
             {
                 size: 'small',
-                h1: '24px',
-                h5: '20px',
-                text: '10px'
+                h1: '22px',
+                h5: '18px',
+                text: '8px'
             },
             {
                 size: 'medium',
-                h1: '28px',
-                h5: '24px',
-                text: '12px'
+                h1: '26px',
+                h5: '22px',
+                text: '10px'
             },
             {
                 size: 'large',
-                h1: '32px',
-                h5: '28px',
-                text: '14px'
+                h1: '30px',
+                h5: '26px',
+                text: '12px'
             },
         ],
 
@@ -178,14 +178,14 @@ const PDFPreviewHeader = ({ name, category, alcoholic, glass, imageUrl }) => {
                 <div className="header-logo__text">cocktailrecipes</div>
                 <img className="header-logo__image" src="assets/drink.png" alt="Logo" />
             </div>
-            <div className="d-flex flex-row justify-content-between align-items-start" style={{ marginTop: '80px', fontSize: `${fontSize.text}` }}>
+            <div className="d-flex flex-row justify-content-between align-items-start" style={{ marginTop: '50px', fontSize: `${fontSize.text}` }}>
                 <div className="header__details">
                     <h1 className="details__heading" style={{ fontSize: `${fontSize.h1}` }}>{name}</h1>
                     <p className="details__text">Category: {category}</p>
                     <p className="details__text">Alcoholic: {alcoholic}</p>
                     <p className="details__text">Glass: {glass}</p>
                 </div>
-                <img className="header__image" src={imageUrl} alt={name} style={{ visibility: includeImage ? 'visible' : 'hidden' }} />
+                <img className="header__image" src={imageUrl} alt={name} style={{ visibility: includeImage ? 'visible' : 'hidden' }} loading="lazy" />
             </div>
         </div>
     )
@@ -219,4 +219,4 @@ const PDFPreviewBody = ({ ingredients, measures, instructions }) => {
     )
 }
 
-export default PrintView
+export default PDFView
