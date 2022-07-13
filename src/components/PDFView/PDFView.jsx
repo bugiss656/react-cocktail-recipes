@@ -3,9 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { selectDrink, selectError, selectIsLoading } from "../../features/drink/drinkSlice"
 import { retrieveDrinkProperties } from "../../utils/retrieveDrinkProperties"
 import { 
+    selectFilename,
     selectFontSize,
     selectIncludeImage, 
+    selectIsModalOpen, 
+    setFilename, 
     setFontSize, 
+    setModalState, 
     toggleIncludeImage 
 } from "../../features/pdf/pdfSlice"
 import jsPDF from "jspdf"
@@ -17,6 +21,8 @@ import Loader from "../Loader/Loader"
 import Select from "../Select/Select"
 import Button from "../Button/Button"
 import { Ingredients } from "../DrinkDetails/DrinkDetails"
+import Modal from "../Modal/Modal"
+import Input from "../Input/Input"
 
 import './PDFView.css'
 import { montserratRegular } from "./Montserrat-Regular-normal"
@@ -24,6 +30,29 @@ import { montserratRegular } from "./Montserrat-Regular-normal"
 
 
 const PDFView = () => {
+    const dispatch = useDispatch()
+    const isModalOpen = useSelector(selectIsModalOpen)
+    const filename = useSelector(selectFilename)
+
+    const saveAsPDF = (filename) => {
+        const doc = new jsPDF({
+            orientation: 'portrait',
+            unit: 'pt',
+            format: 'a4'
+        })
+
+        doc.addFileToVFS('Montserrat-Regular-normal.ttf', montserratRegular)
+        doc.addFont('Montserrat-Regular-normal.ttf', 'Montserrat', 'normal')
+        doc.setFont('Montserrat', 'normal')
+
+        doc.html(document.querySelector('#pdf-preview'), {
+            callback: (doc) => {
+                doc.save(`${filename}.pdf`)
+            }
+        })
+    }
+
+
     return (
         <div className="print-view d-flex flex-column">
             <Header text="Save Options" />
@@ -31,6 +60,39 @@ const PDFView = () => {
             <div className="d-flex flex-row justify-content-around my-5">
                 <PDFOptions />
                 <PDFRecipePreview />
+                <Modal 
+                    header={
+                        <>
+                            <h3>Save recipe</h3>
+                            <Divider />
+                        </>
+                    }
+                    body={
+                        <div className="d-flex flex-column w-100">
+                            <div className="d-flex flex-row align-items-center my-2">
+                                <Input
+                                    type="text"
+                                    value={filename}
+                                    placeholder="Enter filename"
+                                    onChange={(e) => dispatch(setFilename(e.target.value))}
+                                />
+                                <span className="mx-2">.pdf</span>
+                            </div>
+                            <div className="d-flex flex-row justify-content-end my-2">
+                                <Button
+                                    text="Save"
+                                    onClick={() => {
+                                        saveAsPDF(filename)
+                                        dispatch(setModalState(false))
+                                        dispatch(setFilename(''))
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    }
+                    isOpen={isModalOpen}
+                    onClick={() => dispatch(setModalState(false))}
+                />
             </div>
         </div>
     )
@@ -83,24 +145,6 @@ const PDFOptions = () => {
         }
     }
 
-    const saveAsPDF = () => {
-        const doc = new jsPDF({
-            orientation: 'portrait',
-            unit: 'pt',
-            format: 'a4'
-        })
-
-        doc.addFileToVFS('Montserrat-Regular-normal.ttf', montserratRegular)
-        doc.addFont('Montserrat-Regular-normal.ttf', 'Montserrat', 'normal')
-        doc.setFont('Montserrat', 'normal')
-
-        doc.html(document.querySelector('#pdf-preview'), {
-            callback: (doc) => {
-                doc.save('recipe.pdf')
-            }
-        })
-    }
-
     useEffect(() => {
         dispatch(setFontSize(options.getFontSize('medium')))
     }, [])
@@ -130,9 +174,9 @@ const PDFOptions = () => {
                 />
             </div>
             <div className="save-options__save-document my-4">
-                <Button 
+                <Button
                     text="Save recipe"
-                    onClick={() => saveAsPDF()}
+                    onClick={() => dispatch(setModalState(true))}
                 />
             </div>
         </div>
