@@ -1,0 +1,10 @@
+
+
+.alert-box {
+    position: fixed;
+    background-color: #fff3cc;
+    border-left: 6px solid #ffb84d;
+    border-radius: 6px;
+    bottom: 0;
+    right: 0;
+}
