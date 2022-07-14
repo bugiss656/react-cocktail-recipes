@@ -6,7 +6,9 @@ import {
     selectFilename,
     selectFontSize,
     selectIncludeImage, 
+    selectIsAlertActive, 
     selectIsModalOpen, 
+    setAlertState, 
     setFilename, 
     setFontSize, 
     setModalState, 
@@ -26,6 +28,7 @@ import Input from "../Input/Input"
 
 import './PDFView.css'
 import { montserratRegular } from "./Montserrat-Regular-normal"
+import Alert from "../Alert/Alert"
 
 
 
@@ -52,6 +55,18 @@ const PDFView = () => {
         })
     }
 
+    const handleOnSubmit = (e) => {
+        e.preventDefault()
+
+        if (filename !== '') {
+            saveAsPDF(filename)
+            dispatch(setModalState(false))
+            dispatch(setFilename(''))
+        } else {
+            dispatch(setAlertState(true))
+        }
+    }
+
 
     return (
         <div className="print-view d-flex flex-column">
@@ -69,25 +84,21 @@ const PDFView = () => {
                     }
                     body={
                         <div className="d-flex flex-column w-100">
-                            <div className="d-flex flex-row align-items-center my-2">
-                                <Input
-                                    type="text"
-                                    value={filename}
-                                    placeholder="Enter filename"
-                                    onChange={(e) => dispatch(setFilename(e.target.value))}
-                                />
-                                <span className="mx-2">.pdf</span>
-                            </div>
-                            <div className="d-flex flex-row justify-content-end my-2">
-                                <Button
-                                    text="Save"
-                                    onClick={() => {
-                                        saveAsPDF(filename)
-                                        dispatch(setModalState(false))
-                                        dispatch(setFilename(''))
-                                    }}
-                                />
-                            </div>
+                            <form onSubmit={handleOnSubmit}>
+                                <div className="d-flex flex-row align-items-center my-2">
+                                    <Input
+                                        type="text"
+                                        value={filename}
+                                        placeholder="Enter filename"
+                                        onChange={(e) => dispatch(setFilename(e.target.value))}
+                                    />
+                                    <span className="mx-2">.pdf</span>
+                                </div>
+                                <div className="d-flex flex-row justify-content-end my-2">
+                                    <Button text="Save" />
+                                </div>
+                                <Alert text="Please fill the filename" />
+                            </form>
                         </div>
                     }
                     isOpen={isModalOpen}
