@@ -15,7 +15,7 @@ const Alert = ({ text }) => {
                 dispatch(setAlertState(false))
             }, 3000)
         }
-    }, [isAlertActive])
+    }, [isAlertActive, dispatch])
 
     
     return (

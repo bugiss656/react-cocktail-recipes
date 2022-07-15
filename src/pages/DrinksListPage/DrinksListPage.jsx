@@ -35,7 +35,7 @@ const RecipesList = () => {
 
     useEffect(() => {
         dispatch(fetchDrinksByCategory(urls.drinksByCategory + matchParams(categories, category)))
-    }, [category])
+    }, [category, dispatch])
 
     return (
         <>

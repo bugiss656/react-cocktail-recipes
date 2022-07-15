@@ -14,7 +14,7 @@ const Modal = ({ header, body, isOpen, onClick }) => {
 
     useEffect(() => {
         const handleSetModalState = (e) => {
-            if (isModalOpen === true && e.target == ref.current) {
+            if (isModalOpen === true && e.target === ref.current) {
                 dispatch(setModalState(false))
             }
         }

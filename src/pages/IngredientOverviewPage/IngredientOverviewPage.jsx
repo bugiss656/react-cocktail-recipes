@@ -20,7 +20,7 @@ const IngredientOverviewPage = () => {
 
     useEffect(() => {
         dispatch(fetchIngredientByName(urls.ingredientByName + name))
-    }, [name])
+    }, [name, dispatch])
 
     return (
         <SectionContainer className='container my-5'>

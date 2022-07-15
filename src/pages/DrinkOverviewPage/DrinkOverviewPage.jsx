@@ -26,7 +26,7 @@ const DrinkOverviewPage = () => {
 
     useEffect(() => {
         dispatch(fetchDrink(urls.drinkById + id))
-    }, [id])
+    }, [id, dispatch])
 
     return (
         <SectionContainer className="container my-5">

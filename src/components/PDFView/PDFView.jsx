@@ -6,7 +6,6 @@ import {
     selectFilename,
     selectFontSize,
     selectIncludeImage, 
-    selectIsAlertActive, 
     selectIsModalOpen, 
     setAlertState, 
     setFilename, 
@@ -158,7 +157,7 @@ const PDFOptions = () => {
 
     useEffect(() => {
         dispatch(setFontSize(options.getFontSize('medium')))
-    }, [])
+    }, [dispatch])
 
 
     return (
