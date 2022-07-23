@@ -5,6 +5,7 @@ import axios from "axios";
 const initialState = {
     searchQuery: '',
     searchResults: [],
+    isDropdownActive: false,
     isLoading: true,
     error: null
 }
@@ -24,6 +25,9 @@ export const searchSlice = createSlice({
     reducers: {
         updateSearchQuery: (state, action) => {
             state.searchQuery = action.payload
+        },
+        setDropdownState: (state, action) => {
+            state.isDropdownActive = action.payload
         }
     },
     extraReducers: {
@@ -31,6 +35,7 @@ export const searchSlice = createSlice({
             state.isLoading = true
         },
         [fetchSearchResults.fulfilled]: (state, action) => {
+            state.searchResults = []
             state.isLoading = false
             state.searchResults = action.payload
         },
@@ -40,13 +45,15 @@ export const searchSlice = createSlice({
     }
 })
 
-export const { updateSearchQuery } = searchSlice.actions
+export const { updateSearchQuery, setDropdownState } = searchSlice.actions
 
 export default searchSlice.reducer
 
 export const selectSearchQuery = state => state.search.searchQuery
 
 export const selectSearchResults = state => state.search.searchResults
+
+export const selectIsDropdownActive = state => state.search.isDropdownActive
 
 export const selectIsLoading = state => state.search.isLoading
 
