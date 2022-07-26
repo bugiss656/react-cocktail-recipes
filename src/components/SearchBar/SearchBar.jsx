@@ -1,21 +1,24 @@
 import axios from 'axios'
-import { useEffect } from 'react'
-import { useState } from 'react'
-import { createRef } from 'react'
+import { 
+    useEffect, 
+    useState, 
+    createRef 
+} from 'react'
 import { IconContext } from 'react-icons'
 import { BiSearch } from 'react-icons/bi'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { 
     fetchSearchResults, 
-    selectSearchResults,
-    selectIsDropdownActive, 
-    setDropdownState, 
     updateSearchQuery, 
 } from '../../features/search/searchSlice'
 import { urls } from "../../settings"
 
 import SearchDropdownList from '../SearchDropdown/SearchDropdownList'
+import { 
+    SearchDropdownItem, 
+    SearchDropdownItemUnactive 
+} from '../SearchDropdown/SearchDropdownList'
 import Input from '../Input/Input'
 
 
@@ -26,13 +29,15 @@ import './SearchBar.css'
 const SearchBar = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const isDropdownActive = useSelector(selectIsDropdownActive)
 
     const [searchQuery, setSearchQuery] = useState('')
     const [proposedResults, setProposedResults] = useState([])
+    const [isDropdownActive, setIsDropdownActive] = useState(false)
+    const [isFocused, setIsFocused] = useState(false)
 
     const inputRef = createRef()
     const dropdownRef = createRef()
+
 
     const handleSubmitForm = (e) => {
         e.preventDefault()
@@ -47,6 +52,7 @@ const SearchBar = () => {
         }
     }
 
+
     const fetchProposedResults = (url) => {
         axios.get(url)
         .then(response => {
@@ -57,20 +63,22 @@ const SearchBar = () => {
         })
     }
 
+
     useEffect(() => {
         if (searchQuery.length >= 3) {
             fetchProposedResults(urls.drinksByName + searchQuery)
-            dispatch(setDropdownState(true))
+            setIsDropdownActive(true)
         } else {
-            dispatch(setDropdownState(false))
+            setIsDropdownActive(false)
             setProposedResults([])
         }
     }, [searchQuery])
 
+
     useEffect(() => {
         const handleSearchDropdownState = (e) => {
             if (isDropdownActive === true && e.target !== inputRef.current && e.target !== dropdownRef.current) {
-                dispatch(setDropdownState(false))
+                setIsDropdownActive(false)
             }
         }
 
@@ -80,6 +88,12 @@ const SearchBar = () => {
             window.removeEventListener('click', handleSearchDropdownState)
         }
     })
+
+
+    useEffect(() => {
+        if (isFocused) setIsDropdownActive(true)
+        if (!isFocused) setIsDropdownActive(false)
+    }, [isFocused])
 
     
     return (
@@ -91,22 +105,37 @@ const SearchBar = () => {
                     value={searchQuery}
                     placeholder="Search for a drink"
                     onFocus={() => {
-                        dispatch(setDropdownState(true))
+                        setIsFocused(true)
                     }}
                     onBlur={() => {
-                        dispatch(setDropdownState(false))
+                        setIsFocused(false)
                     }}
                     onChange={(e) => { setSearchQuery(e.target.value)}}
                 />
                 <SearchDropdownList
-                    ref={dropdownRef}
-                    results={proposedResults}
                     isActive={isDropdownActive}
-                    onClick={(e) => {
-                        setSearchQuery(e.target.innerHTML)
-                        dispatch(setDropdownState(false))
-                    }}
-                />
+                >
+                    {proposedResults
+                        ?
+                        proposedResults
+                            .slice(0, 6)
+                            .map(result =>
+                                <SearchDropdownItem
+                                    key={result.idDrink}
+                                    name={result.strDrink}
+                                    onMouseDown={(e) => {
+                                        setSearchQuery(e.target.innerHTML)
+                                        navigate(`drinks/${result.idDrink}`)
+                                        setIsDropdownActive(false)
+                                    }}
+                                />
+                            )
+                        :
+                        <SearchDropdownItemUnactive
+                            name="No results found"
+                        />
+                    }
+                </SearchDropdownList>
             </div>
             <SearchButton />
         </form>
